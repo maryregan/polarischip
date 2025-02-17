@@ -49,6 +49,10 @@ export class PolarisChip extends LitElement {
         /* Always make sure that your element has a default way of being displayed */
         display: inline-flex;
       }
+      :host([fancy]) .card{
+        background-color: purple;
+        
+      }
 
       a {
         background-color: orange;

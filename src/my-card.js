@@ -18,8 +18,9 @@ export class MyCard extends LitElement {
     this.image = "https://t3.ftcdn.net/jpg/07/08/87/22/360_F_708872253_fnARsh5Ds0rOQrsFUeGRQML6Ethg8kIW.jpg";
     this.content = "This is a birthday cat! Happy birthday!!";
     this.link = "https://hax.psu.edu";
-    this.buttonText = "Click me!";
+    this.buttonText = "Click me for a present!";
     this.color = "powder blue";
+    this.fancy = false;
   }
 
   static get styles() {
@@ -32,6 +33,9 @@ export class MyCard extends LitElement {
         border-radius: 8px;
         padding: 16px;
         background-color: var(--card-color, white);
+      }
+      :host([fancy]) .card{
+        background-color: blue;
       }
       .control-wrapper {
         display: flex;
@@ -53,21 +57,28 @@ export class MyCard extends LitElement {
       }
     `;
   }
+  
 
   render() {
     return html`
-      <div id="card" style="background-color: ${this.color};">
+      <div id="card" style="background-color: ${this.color};" max-width="400px" max-height="200px"> 
       <div class="birthday-card">
         <img class="card-image" alt="Birthday" src="${this.image}" style="width:350px; height:200px;">
-        <div class="text">  
         <h1 class="card-title">${this.title}</h1>
+        <div class="text">  
         <p>${this.content}</p>
-        <a href="${this.link}" target="_blank">
-          <button class="btn">${this.buttonText}</button>
-        </a>
-        </div>
+        <details ?open = "${this.fancy}">
+          <summary> Description</summary>
+          <div>
+            <a href="${this.link}" target="_blank">
+              <button class="btn">${this.buttonText}</button>
+            </a>
+          </div>
+          </div>
+        </details>
       </div>
       </div>
+  
     `;
   }
 
@@ -79,6 +90,7 @@ export class MyCard extends LitElement {
       link: { type: String },
       buttonText: { type: String },
       color: { type: String },
+      fancy: { type: Boolean, reflect: true }
     };
   }
 }
